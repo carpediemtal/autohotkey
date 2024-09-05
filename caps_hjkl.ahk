@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.11+                               ; Always have a version requirment
 
-*CapsLock::double_tap_caps()                                ; Double tap to use caps  
+boolEnabled := true
+^+CapsLock::toggle_feature()                                ; Ctrl + Shift + E to enable/disable
 
-#HotIf GetKeyState('CapsLock', 'P')                         ; Following hotkeys are enabled when caps is held
+#HotIf boolEnabled
+*CapsLock::double_tap_caps()                                ; Double tap to use caps
+#HotIf
+
+#HotIf boolEnabled && GetKeyState('CapsLock', 'P')          ; Following hotkeys are enabled when caps is held
 h::Left
 j::Down
 k::Up
@@ -35,4 +40,9 @@ double_tap_caps() {
         state := GetKeyState('CapsLock', 'T')               ; Get current caps toggle state
         SetCapsLockState('Always' (state ? 'Off' : 'On'))   ; Set it to the opposite
     }
+}
+
+toggle_feature() {
+    global boolEnabled := !boolEnabled
+    MsgBox "caps feature: " (boolEnabled ? "enable" : "disable")
 }
