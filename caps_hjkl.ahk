@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.11+                               ; Always have a version requirment
 
 boolEnabled := true
-^+CapsLock::toggle_feature()                                ; Ctrl + Shift + E to enable/disable
+^+CapsLock::toggle_feature()                                ; Ctrl + Shift + CapsLock to enable/disable
 
 #HotIf boolEnabled
 *CapsLock::double_tap_caps()                                ; Double tap to use caps
@@ -38,7 +38,7 @@ double_tap_caps() {
     
     toggle_caps() {
         state := GetKeyState('CapsLock', 'T')               ; Get current caps toggle state
-        SetCapsLockState('Always' (state ? 'Off' : 'On'))   ; Set it to the opposite
+        SetCapsLockState(!state)                            ; Set it to the opposite
     }
 }
 
